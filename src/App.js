@@ -3,7 +3,7 @@ import { Upload, message, Button, Row, Divider, Col, Progress, Layout, Typograph
 
 
 
-import { InboxOutlined, EditOutlined, EllipsisOutlined, DeleteOutlined } from '@ant-design/icons';
+import { InboxOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import { createWorker } from 'tesseract.js';
 
@@ -99,6 +99,15 @@ function App() {
     });
     setListData(Object.values(savedText));
   }
+
+  const deleteSavedText = (id) => {
+    console.log("In Delete");
+    setSavedText((previous) => {
+      delete previous[id];
+      return previous;
+    });
+    setListData(Object.values(savedText));
+  }
   return (
     <>
 
@@ -154,9 +163,7 @@ function App() {
                 <List.Item
                   key={item.id}
                   actions={[
-                    <DeleteOutlined key="delete" />,
-                    <EditOutlined key="edit" />,
-                    <EllipsisOutlined key="ellipsis" />
+                    <Button danger icon={<DeleteOutlined />} key="delete" onClick={() => deleteSavedText(item.id)}>Delete</Button>
                   ]}
                   extra={
                     <Image
